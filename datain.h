@@ -20,6 +20,9 @@ public:
     ~DataIn();
 
 private slots:
+    void data_in();
+
+private:
     void MS();
     void MSC();
     void BSC();
@@ -31,7 +34,6 @@ private slots:
     void Datas();
     void Locate();
 
-private:
     Ui::DataIn *ui;
 };
 

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "opendb.h"
 #include "datain.h"
+#include "dataout.h"
 
 namespace Ui {
 class MainWindow;

@@ -7,23 +7,65 @@ DataIn::DataIn(QWidget *parent) :
     ui(new Ui::DataIn)
 {
     ui->setupUi(this);
-    qDebug()<<odb->DBtest;
-    connect(ui->MS,SIGNAL(clicked()),this,SLOT(MS()));
-    connect(ui->MSC,SIGNAL(clicked()),this,SLOT(MSC()));
-    connect(ui->BSC,SIGNAL(clicked()),this,SLOT(BSC()));
-    connect(ui->BTS,SIGNAL(clicked()),this,SLOT(BTS()));
-    connect(ui->Cell,SIGNAL(clicked()),this,SLOT(Cell()));
-    connect(ui->Freq,SIGNAL(clicked()),this,SLOT(Freq()));
-    connect(ui->Tianxian,SIGNAL(clicked()),this,SLOT(Tianxian()));
-    connect(ui->Neighbor,SIGNAL(clicked()),this,SLOT(Neighbor()));
-    connect(ui->Datas,SIGNAL(clicked()),this,SLOT(Datas()));
-    connect(ui->Locate,SIGNAL(clicked()),this,SLOT(Locate()));
+
+//    connect(ui->MS,SIGNAL(clicked()),this,SLOT(MS()));
+//    connect(ui->MSC,SIGNAL(clicked()),this,SLOT(MSC()));
+//    connect(ui->BSC,SIGNAL(clicked()),this,SLOT(BSC()));
+//    connect(ui->BTS,SIGNAL(clicked()),this,SLOT(BTS()));
+//    connect(ui->Cell,SIGNAL(clicked()),this,SLOT(Cell()));
+//    connect(ui->Freq,SIGNAL(clicked()),this,SLOT(Freq()));
+//    connect(ui->Tianxian,SIGNAL(clicked()),this,SLOT(Tianxian()));
+//    connect(ui->Neighbor,SIGNAL(clicked()),this,SLOT(Neighbor()));
+//    connect(ui->Datas,SIGNAL(clicked()),this,SLOT(Datas()));
+//    connect(ui->Locate,SIGNAL(clicked()),this,SLOT(Locate()));
+
+    connect(ui->confirm,SIGNAL(clicked()),this,SLOT(data_in()));
 }
 
 DataIn::~DataIn()
 {
     delete ui;
 }
+
+void DataIn::data_in()
+{
+    int which = ui->comboBox->currentIndex();
+    switch (which) {
+    case 0:
+        MS();
+        break;
+    case 1:
+        MSC();
+        break;
+    case 2:
+        BSC();
+        break;
+    case 3:
+        BTS();
+        break;
+    case 4:
+        Cell();
+        break;
+    case 5:
+        Freq();
+        break;
+    case 6:
+        Tianxian();
+        break;
+    case 7:
+        Datas();
+        break;
+    case 8:
+        Neighbor();
+        break;
+    case 9:
+        Locate();
+        break;
+    default:
+        break;
+    }
+}
+
 void DataIn::MS()
 {
 
@@ -35,23 +77,11 @@ void DataIn::MS()
     QAxObject *worksheet = workbook->querySubObject("WorkSheets(int)",1);//获取第1个工作表(sheet)
 
     QAxObject *used_range = worksheet->querySubObject("UsedRange");
-//    QAxObject *range = worksheet->querySubObject("Cells(int,int)",2,1); //获取cell的值
-//    QString strVal = range->dynamicCall("Value2()").toString();
-//    ui->label->setText(strVal);
+
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
-//    qDebug()<<row_count;
 
     int k=2,record;
-//    QSqlQuery query;
-//    query.exec("SELECT UserName FROM MS");
-//    while (query.next())
-//    {
-//        qDebug()<<"bala";
-//        QString type_name = query.value(0).toString();
-//        qDebug()<<type_name;
-//    }
-//    qDebug()<<"bala";
 
     while(k<=row_count)
     {
@@ -79,10 +109,6 @@ void DataIn::MS()
         query.execBatch(); //进行批处理
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
-
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出
     qDebug("导入MS成功！");
@@ -101,7 +127,6 @@ void DataIn::MSC()
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
 
-    qDebug()<<row_count;//竟然有12行
     int k=2,record;
     while(k<=row_count)
     {
@@ -116,7 +141,6 @@ void DataIn::MSC()
             for(int j=0;j<6;j++)
             {
                 range[j] = worksheet->querySubObject("Cells(int,int)",i,j+1); //获取cell的值
-                qDebug()<<range[j]->dynamicCall("Value2()").toString();
                 if(j==3||j==4||j==5)
                     xinxi[j]<<(range[j]->dynamicCall("Value2()").toDouble());
                 else
@@ -129,10 +153,6 @@ void DataIn::MSC()
         query.execBatch(); //进行批处理
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
-
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出
 
@@ -151,7 +171,6 @@ void DataIn::BSC()
     QAxObject *used_range = worksheet->querySubObject("UsedRange");
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
-    qDebug()<<row_count;
 
     int k=2,record;
     while(k<=row_count)
@@ -179,10 +198,6 @@ void DataIn::BSC()
         query.execBatch(); //进行批处理
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
-
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出
 
@@ -201,7 +216,6 @@ void DataIn::BTS()
     QAxObject *used_range = worksheet->querySubObject("UsedRange");
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
-    qDebug()<<row_count;
 
     int k=2,record;
     while(k<=row_count)
@@ -229,10 +243,6 @@ void DataIn::BTS()
         query.execBatch(); //进行批处理
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
-
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出
 
@@ -251,7 +261,6 @@ void DataIn::Cell()
     QAxObject *used_range = worksheet->querySubObject("UsedRange");
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
-    qDebug()<<row_count;
 
     int k=2,record;
     while(k<=row_count)
@@ -280,10 +289,6 @@ void DataIn::Cell()
 
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
-
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出
 
@@ -302,7 +307,6 @@ void DataIn::Freq()
     QAxObject *used_range = worksheet->querySubObject("UsedRange");
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
-    qDebug()<<row_count;
 
     int k=2,record;
     while(k<=row_count)
@@ -318,7 +322,6 @@ void DataIn::Freq()
             for(int j=0;j<2;j++)
             {
                 range[j] = worksheet->querySubObject("Cells(int,int)",i,j+1); //获取cell的值
-//                xinxi[j]<<(range[j]->dynamicCall("Value2()").toDouble());
                 if(j==1)
                     xinxi[j]<<(range[j]->dynamicCall("Value2()").toDouble());
                 else
@@ -331,10 +334,6 @@ void DataIn::Freq()
         query.execBatch(); //进行批处理
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
-
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出
 
@@ -353,7 +352,6 @@ void DataIn::Tianxian()
     QAxObject *used_range = worksheet->querySubObject("UsedRange");
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
-    qDebug()<<row_count;
 
     int k=2,record;
     while(k<=row_count)
@@ -381,10 +379,6 @@ void DataIn::Tianxian()
         query.execBatch(); //进行批处理
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
-
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出
 
@@ -403,7 +397,6 @@ void DataIn::Neighbor()
     QAxObject *used_range = worksheet->querySubObject("UsedRange");
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
-    qDebug()<<row_count;
 
     int k=2,record;
     while(k<=row_count)
@@ -431,10 +424,6 @@ void DataIn::Neighbor()
         query.execBatch(); //进行批处理
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
-
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出
 
@@ -453,7 +442,6 @@ void DataIn::Datas()
     QAxObject *used_range = worksheet->querySubObject("UsedRange");
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
-    qDebug()<<row_count;
 
     int k=2,record;
     while(k<=row_count)
@@ -469,7 +457,6 @@ void DataIn::Datas()
             for(int j=0;j<10;j++)
             {
                 range[j] = worksheet->querySubObject("Cells(int,int)",i,j+1); //获取cell的值
-//                xinxi[j]<<(range[j]->dynamicCall("Value2()").toDouble());
                 if(j!=2)
                     xinxi[j]<<(range[j]->dynamicCall("Value2()").toDouble());
                 else
@@ -484,9 +471,6 @@ void DataIn::Datas()
 
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
 
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出
@@ -506,7 +490,6 @@ void DataIn::Locate()
     QAxObject *used_range = worksheet->querySubObject("UsedRange");
     QAxObject *rows = used_range->querySubObject("Rows");
     int row_count = rows->property("Count").toInt();  //获取行数
-    qDebug()<<row_count;
 
     int k=2,record;
     while(k<=row_count)
@@ -534,9 +517,6 @@ void DataIn::Locate()
         query.execBatch(); //进行批处理
 
     }
-
-//    QLabel *Label2 = new QLabel("数据导入完毕!\n");
-//    Label2->show();
 
     workbook->dynamicCall("Close(Boolean)", false);  //关闭文件
     excel.dynamicCall("Quit(void)");  //退出

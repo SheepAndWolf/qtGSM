@@ -15,11 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     opendb.cpp \
-    datain.cpp
+    datain.cpp \
+    dataout.cpp \
+    excel_rw.cpp
 
 HEADERS  += mainwindow.h \
     opendb.h \
-    datain.h
+    datain.h \
+    dataout.h \
+    excel_rw.h
 
 FORMS    += mainwindow.ui \
-    datain.ui
+    datain.ui \
+    dataout.ui

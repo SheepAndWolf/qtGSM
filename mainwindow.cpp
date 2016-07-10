@@ -16,6 +16,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::toDataIn()
 {
+    Dataout* out = new Dataout();
     DataIn* in = new DataIn();
     in->exec();
 }
