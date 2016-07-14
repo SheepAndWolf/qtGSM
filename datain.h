@@ -18,9 +18,7 @@ class DataIn : public QDialog
 public:
     explicit DataIn(QWidget *parent = 0);
     ~DataIn();
-
-private slots:
-    void data_in();
+    void data_in(int);
 
 private:
     void MS();

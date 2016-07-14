@@ -19,7 +19,7 @@ DataIn::DataIn(QWidget *parent) :
 //    connect(ui->Datas,SIGNAL(clicked()),this,SLOT(Datas()));
 //    connect(ui->Locate,SIGNAL(clicked()),this,SLOT(Locate()));
 
-    connect(ui->confirm,SIGNAL(clicked()),this,SLOT(data_in()));
+//    connect(ui->confirm,SIGNAL(clicked()),this,SLOT(data_in()));
 }
 
 DataIn::~DataIn()
@@ -27,9 +27,8 @@ DataIn::~DataIn()
     delete ui;
 }
 
-void DataIn::data_in()
+void DataIn::data_in(int which)
 {
-    int which = ui->comboBox->currentIndex();
     switch (which) {
     case 0:
         MS();

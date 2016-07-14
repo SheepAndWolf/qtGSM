@@ -20,23 +20,17 @@ class Dataout : public QDialog
     Q_OBJECT
 
 public:
-    explicit Dataout(QWidget *parent = 0);
+    explicit Dataout(int flag,QString where,QWidget *parent = 0);
     ~Dataout();
+    void data_out(QString, bool);
 
 private:
     Ui::Dataout *ui;
+    int flags;
+    QString Where;
 private slots:
-//    void MS();
-//    void MSC();
-//    void BSC();
-//    void BTS();
-//    void Cell();
-//    void Freq();
-//    void Tianxian();
-//    void Neighbor();
-//    void Datas();
-//    void Locate();
-    void data_out();
+    void out_queryResult();
+    void testtest();
 };
 
 #endif // DATAOUT_H

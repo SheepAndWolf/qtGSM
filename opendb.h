@@ -1,6 +1,7 @@
 #ifndef OPENDB_H
 #define OPENDB_H
 #include <QSqlDatabase>
+#include <QtSql>
 
 class OpenDB
 {

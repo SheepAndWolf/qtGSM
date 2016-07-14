@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql axcontainer
+QT       += core gui sql axcontainer webkitwidgets network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,14 +17,29 @@ SOURCES += main.cpp\
     opendb.cpp \
     datain.cpp \
     dataout.cpp \
-    excel_rw.cpp
+    registing.cpp \
+    control.cpp \
+    distance.cpp \
+    point.cpp \
+    chartdialog.cpp \
+    gsmwebpage.cpp \
+    gsmwebwiget.cpp
 
 HEADERS  += mainwindow.h \
     opendb.h \
     datain.h \
     dataout.h \
-    excel_rw.h
+    registing.h \
+    control.h \
+    distance.h \
+    point.h \
+    chartdialog.h \
+    gsmwebpage.h \
+    gsmwebwiget.h
 
 FORMS    += mainwindow.ui \
     datain.ui \
-    dataout.ui
+    dataout.ui \
+    registing.ui \
+    control.ui \
+    chartdialog.ui
